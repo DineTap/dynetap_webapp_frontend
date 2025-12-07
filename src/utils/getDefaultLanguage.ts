@@ -1,0 +1,11 @@
+import { type MenuLanguage } from "@prisma/client";
+
+export const getDefaultLanguage = <T extends MenuLanguage[]>(languages: T) => {
+  const defaultLanguage = languages.find((lang) => lang.isDefault);
+
+  if (!defaultLanguage && languages.length === 0) {
+    throw new Error("There's no default language and no languages at all!");
+  }
+
+  return defaultLanguage ?? languages[0]!;
+};
