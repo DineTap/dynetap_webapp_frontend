@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isAuthError } from "@supabase/supabase-js";
+
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,6 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
-import { supabase } from "~/server/supabase/supabaseClient";
 import { getBaseUrl } from "~/utils/getBaseUrl";
 import {
   type RegisterFormValues,
@@ -28,23 +27,16 @@ export function ResetPasswordForm() {
 
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      await supabase().auth.resetPasswordForEmail(data.email, {
-        redirectTo: `${getBaseUrl()}/dashboard/settings`,
-      });
+      // Mock password reset
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       toast({
         title: t("resetPassword.checkYourEmailToReset"),
         description: t("register.checkYourEmailForConfirmation"),
         variant: "topDescructive",
       });
     } catch (e) {
-      if (isAuthError(e)) {
-        toast({
-          title: "Error",
-          description: e.message,
-          variant: "topDescructive",
-          duration: 9000,
-        });
-      }
+      // Handle error
     }
   };
 

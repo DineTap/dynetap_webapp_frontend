@@ -6,7 +6,7 @@ import { Badge } from "~/components/ui/badge";
 import { Card } from "~/components/ui/card";
 import { ChevronDown, ChevronUp, Clock, MapPin, User, Phone, MessageSquare } from "lucide-react";
 import { formatPrice } from "~/utils/formatPrice";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { cn } from "~/utils/cn";
 
 const STATUS_CONFIG = {

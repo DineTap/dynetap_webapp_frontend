@@ -188,7 +188,6 @@ const messages = {
     menuPublishedNotification: "Menu zostało opublikowane",
     menuPublishedNotificationDescription:
       "Twoje menu zostało opublikowane. Użytkownicy będą mogli zobaczyć Twoje menu.",
-    backToDashboard: "Wróć do panelu",
   },
   languageToggle: {
     toggleLanguage: "Zmień język",

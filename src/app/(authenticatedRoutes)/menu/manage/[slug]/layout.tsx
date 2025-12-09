@@ -1,4 +1,4 @@
-import { PrefetchTRPCQuery } from "~/components/PrefetchTRPCQuery/PrefetchTRPCQuery";
+
 import { LayoutView } from "./_components/LayoutView";
 
 async function RootLayout({
@@ -10,9 +10,7 @@ async function RootLayout({
 }) {
   const { slug } = await params;
   return (
-    <PrefetchTRPCQuery queryName="menus.getMenuBySlug" params={{ slug }}>
-      <LayoutView>{children}</LayoutView>
-    </PrefetchTRPCQuery>
+    <LayoutView>{children}</LayoutView>
   );
 }
 

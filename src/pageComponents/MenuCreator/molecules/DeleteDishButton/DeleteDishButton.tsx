@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 export const DeleteDishButton = ({
   dishName,

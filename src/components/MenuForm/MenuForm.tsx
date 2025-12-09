@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "~/providers/AuthProvider/AuthProvider";
 import { assert } from "~/utils/assert";
 import { useTranslation } from "react-i18next";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import {
   type UpsertMenuFormValues,
   menuValidationSchema,

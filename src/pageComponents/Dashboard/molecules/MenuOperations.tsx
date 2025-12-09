@@ -22,7 +22,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Icons } from "~/components/Icons";
 import { useTranslation } from "react-i18next";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { useToast } from "~/components/ui/use-toast";
 
 interface MenuOperationProps {

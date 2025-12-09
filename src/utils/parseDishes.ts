@@ -1,7 +1,7 @@
-import { type RouterOutputs } from "~/trpc/shared";
+import { type Menu } from "~/lib/mockApi";
 // import { getCategoryTranslations } from "./categoriesUtils"; // commented out
 
-export type FullMenuOutput = RouterOutputs["menus"]["getMenuBySlug"];
+export type FullMenuOutput = Menu;
 
 // type CategoryWithTranslations = {
 //   id: string;

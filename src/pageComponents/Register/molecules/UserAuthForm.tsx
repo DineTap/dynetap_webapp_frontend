@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isAuthError } from "@supabase/supabase-js";
+
 import { type TFunction } from "i18next";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
-import { supabase } from "~/server/supabase/supabaseClient";
+
 import { type ZodReturnType } from "~/utils";
 
 const registerValidationSchema = (translate: TFunction) =>
@@ -75,28 +75,14 @@ export function UserAuthForm() {
 
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      await supabase().auth.signUp({
-        ...data,
-        options: {
-          data: translations[i18n.language as "en" | "pl"],
-        },
-      });
+      // Mock successful registration
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      toast({
-        title: t("register.checkYourEmailForConfirmation"),
-        description: t("common.confirmYourEmail"),
-        variant: "default",
-        duration: 9000,
-      });
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "/dashboard";
+
     } catch (e) {
-      if (isAuthError(e)) {
-        toast({
-          title: "Error",
-          description: e.message,
-          variant: "destructive",
-          duration: 9000,
-        });
-      }
+      // Handle error
     }
   };
 

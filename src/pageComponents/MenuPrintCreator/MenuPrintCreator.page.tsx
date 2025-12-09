@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { MenuPdfGenerator } from "./molecules/MenuPdfGenerator/MenuPdfGenerator";
 import { Form, FormField } from "~/components/ui/form";
 import { ControlledSwitch, Switch } from "~/components/ui/switch";

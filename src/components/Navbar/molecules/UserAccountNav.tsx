@@ -10,8 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { supabase } from "~/server/supabase/supabaseClient";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 export function UserAccountNav() {
   const { data: user } = api.auth.getProfile.useQuery();
@@ -40,7 +39,9 @@ export function UserAccountNav() {
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault();
-            void supabase().auth.signOut();
+            // Mock sign out
+            localStorage.setItem("isLoggedIn", "false");
+            window.location.href = "/";
           }}
         >
           {t("userAccountNav.logout")}

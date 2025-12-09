@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type Provider } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -13,18 +12,17 @@ import { Button, buttonVariants } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
-import { supabase } from "~/server/supabase/supabaseClient";
+
 import { cn } from "~/utils/cn";
 import {
   type LoginFormValues,
   loginValidationSchema,
 } from "./UserAuthForm.schema";
 
-const signInWithOauth = (provider: Provider) => {
-  void supabase().auth.signInWithOAuth({
-    provider: provider,
-    options: { redirectTo: `${window.location.origin}/dashboard` },
-  });
+const signInWithOauth = (provider: string) => {
+  // Mock OAuth sign in
+  localStorage.setItem("isLoggedIn", "true");
+  window.location.href = "/dashboard";
 };
 
 export function UserAuthForm() {
@@ -39,21 +37,12 @@ export function UserAuthForm() {
     },
   });
   const onSubmit = async (data: LoginFormValues) => {
-    const { error } = await supabase().auth.signInWithPassword(data);
+    // Mock successful login
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-        duration: 9000,
-      });
-
-      return;
-    }
-
+    localStorage.setItem("isLoggedIn", "true");
     // Redirect to dashboard after successful login
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   };
 
   return (

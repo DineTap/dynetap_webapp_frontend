@@ -24,7 +24,7 @@ import {
 import { Button, buttonVariants } from "~/components/ui/button";
 import { Icons } from "~/components/Icons";
 import { format } from "date-fns";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { useUserSubscription } from "~/shared/hooks/useUserSubscription";
 import { useToast } from "~/components/ui/use-toast";
 import { cn } from "~/utils/cn";

@@ -1,24 +1,14 @@
-import {
-  type storageBucketsNames,
-  supabase,
-} from "~/server/supabase/supabaseClient";
 
+// Mock file upload
 export const uploadFileToStorage = async (
   path: string,
   file: Blob,
-  bucket: (typeof storageBucketsNames)[keyof typeof storageBucketsNames] = "menus-files",
+  bucket: string = "menus-files",
 ) => {
-  const { error, data } = await supabase()
-    .storage.from(bucket)
-    .upload(path, file, { upsert: true });
+  // Simulate upload delay
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-  if (error) return { error };
-
-  const { data: signedURLData, error: publicUrlError } = await supabase()
-    .storage.from(bucket)
-    .createSignedUrl(data.path, 999_999_999);
-
-  if (publicUrlError) return { error: publicUrlError };
-
-  return { url: signedURLData.signedUrl };
+  // Return a random placeholder image or the blob url created locally if possible?
+  // Start with a static placeholder to be safe.
+  return { url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c", error: null };
 };

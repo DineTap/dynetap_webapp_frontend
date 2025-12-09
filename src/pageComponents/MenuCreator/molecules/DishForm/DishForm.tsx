@@ -11,7 +11,7 @@ import { useUser } from "~/providers/AuthProvider/AuthProvider";
 import { assert } from "~/utils/assert";
 import { uploadFileToStorage } from "~/utils/uploadFile";
 import Select from "react-select";
-import { generateDishImagePath } from "~/server/supabase/storagePaths";
+
 import { useTranslation } from "react-i18next";
 import {
   Accordion,
@@ -19,7 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import {
   addDishValidationSchemaWithImage,
   type AddDishFormValues,
@@ -48,10 +48,7 @@ export const useUpsertDish = () => {
 
       if (dishImageToUpload) {
         const { url, error } = await uploadFileToStorage(
-          generateDishImagePath({
-            dishId: newDish.id,
-            userId: user.id,
-          }),
+          `menus/${user.id}/${newDish.id}.jpg`,
           dishImageToUpload,
         );
 

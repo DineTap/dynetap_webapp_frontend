@@ -6,7 +6,7 @@ import { withPrivateRoute } from "~/providers/AuthProvider/withPrivateRoute";
 const LayoutViewComponent = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="flex h-full w-full grow flex-col justify-center px-2 md:items-center md:px-0">
+      <div className="flex h-full w-full grow flex-col justify-center px-2 pt-8 md:items-center md:px-0">
         <div className="flex-1 md:container">{children}</div>
       </div>
     </>

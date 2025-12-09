@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Icons } from "~/components/Icons";
 import { LoadingScreen } from "~/components/Loading";
 import { useToast } from "~/components/ui/use-toast";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import {
   AddDishButton,
   EditDishButton,
@@ -16,7 +16,7 @@ import {
 } from "./molecules/AddCategoryButton/AddCategoryButton";
 import { DeleteDishButton } from "./molecules/DeleteDishButton/DeleteDishButton";
 import { useTranslation } from "react-i18next";
-import { type TagType } from "@prisma/client";
+import { type TagType } from "~/lib/types";
 import { useHandleFetchError } from "~/shared/hooks/useHandleFetchError";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -56,7 +56,7 @@ export const MenuCreatorPage = ({
     category,
     dishes: dishes.filter((dish: any) => dish.categoryId === category.id)
   }));
-  
+
   // Add uncategorized dishes
   const uncategorizedDishes = dishes.filter((dish: any) => !dish.categoryId);
   if (uncategorizedDishes.length > 0) {

@@ -1,22 +1,10 @@
 import { type Metadata } from "next";
-import { api } from "~/trpc/server";
-import { buildTimeDb } from "~/server/db";
+import { mockApi as api } from "~/lib/mockApi";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-    const menus = await buildTimeDb.menus.findMany({
-        where: {
-            isPublished: true,
-        },
-        select: {
-            slug: true,
-        },
-    });
-    
-    return menus.map((menu) => ({
-        slug: menu.slug,
-    }));
+  return [];
 }
 
 export async function generateMetadata({

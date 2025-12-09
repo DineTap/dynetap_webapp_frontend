@@ -1,4 +1,4 @@
-import { TagType } from "@prisma/client";
+import { TagType } from "~/lib/types";
 import { type ParseKeys } from "i18next";
 
 export const tagsTranslations: Record<TagType, ParseKeys> = {

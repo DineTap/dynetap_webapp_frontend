@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 export const MultiCountriesSelect = ({
   value,

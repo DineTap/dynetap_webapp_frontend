@@ -5,8 +5,7 @@ import "~/styles/globals.css";
 import { cn } from "~/utils/cn";
 import { Roboto } from "next/font/google";
 import { Toaster } from "~/components/ui/toaster";
-import { TRPCReactProvider } from "~/trpc/react";
-import { headers } from "next/headers";
+import { ReactQueryProvider } from "~/providers/ReactQueryProvider/ReactQueryProvider";
 import { getServerUser } from "~/utils/auth";
 import { AuthProvider } from "~/providers/AuthProvider/AuthProvider";
 import { type Metadata } from "next";
@@ -53,11 +52,11 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   const initialLanguage = await detectLanguage(); // Detect on server, pass to client
 
   const user = await getServerUser();
-  const headersList = await headers();
+
 
   return (
     <>
-      <html lang={initialLanguage}>
+      <html lang={initialLanguage} suppressHydrationWarning>
         <head />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <body
@@ -66,10 +65,10 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
             font.className,
           )}
         >
-          <TRPCReactProvider headers={headersList}>
+          <ReactQueryProvider>
             <AuthProvider {...user}>
               <Providers initialLanugage={initialLanguage}>
-                
+
                 <div className="flex min-h-screen flex-col">
                   <Navbar />
                   {children}
@@ -79,7 +78,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
                 <Toaster />
               </Providers>
             </AuthProvider>
-          </TRPCReactProvider>
+          </ReactQueryProvider>
         </body>
       </html>
     </>

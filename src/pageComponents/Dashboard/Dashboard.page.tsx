@@ -4,7 +4,7 @@ import { MenuItem } from "./molecules/MenuItem";
 import { EmptyPlaceholder } from "~/components/EmptyPlaceholder";
 import { DashboardHeader } from "./molecules/Header";
 import { DashboardShell } from "./molecules/Shell";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { LoadingScreen } from "~/components/Loading";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";

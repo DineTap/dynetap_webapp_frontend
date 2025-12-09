@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { MultiCountriesSelect } from "~/components/CountriesSelect/CountriesSelect";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 export const LanguagesSelector = ({
   menuId,

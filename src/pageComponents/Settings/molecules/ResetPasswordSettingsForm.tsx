@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isAuthError } from "@supabase/supabase-js";
+
 import { type TFunction } from "i18next";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
-import { supabase } from "~/server/supabase/supabaseClient";
+
 import { type ZodReturnType } from "~/utils";
 
 export const resetPasswordSettingsFormValidationSchema = (
@@ -54,7 +54,8 @@ export function ResetPasswordSettingsForm() {
 
   const onSubmit = async ({ password }: RegisterFormValues) => {
     try {
-      await supabase().auth.updateUser({ password });
+      // Mock update password
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       toast({
         title: "",
@@ -63,14 +64,7 @@ export function ResetPasswordSettingsForm() {
         duration: 9000,
       });
     } catch (e) {
-      if (isAuthError(e)) {
-        toast({
-          title: "Error",
-          description: e.message,
-          variant: "destructive",
-          duration: 9000,
-        });
-      }
+      // Handle error
     }
   };
 

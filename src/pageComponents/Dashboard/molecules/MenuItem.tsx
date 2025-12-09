@@ -1,6 +1,6 @@
 import { MenuOperations } from "./MenuOperations";
 import Link from "next/link";
-import { type Menus } from "@prisma/client";
+import { type Menus } from "~/lib/types";
 import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import { ShoppingCart } from "lucide-react";
@@ -32,7 +32,7 @@ export function MenuItem({ menu }: MenuItemProps) {
           </div>
         </Link>
       </div>
-      
+
       <div className="flex gap-2 items-center">
         <Link href={`/dashboard/orders?menuId=${menu.id}`}>
           <Button variant="outline" size="sm">

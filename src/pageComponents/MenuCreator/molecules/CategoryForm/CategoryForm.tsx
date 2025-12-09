@@ -6,7 +6,7 @@ import { FormInput } from "~/components/FormInput/FormInput";
 import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import {
   type AddCategoryFormValues,
   addCategoryValidationSchema,

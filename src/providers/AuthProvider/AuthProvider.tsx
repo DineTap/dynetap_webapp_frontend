@@ -4,13 +4,20 @@ import React, {
   type ReactNode,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
-
-import { type Session, type User } from "@supabase/supabase-js";
-import { supabase } from "~/server/supabase/supabaseClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+// Mock types to match Supabase structure roughly or just what's used
+interface User {
+  id: string;
+  email: string;
+}
+
+interface Session {
+  user: User;
+  access_token: string;
+}
 
 export const AuthContext = createContext<{
   user: User | null;
@@ -22,57 +29,37 @@ export const AuthContext = createContext<{
   isLoading: false,
 });
 
-const setCookies = (session: Session | null) => {
-  if (session) {
-    const maxAge = 100 * 365 * 24 * 60 * 60; // 100 years, never expires
+const MOCK_USER: User = {
+  id: "mock_user_id",
+  email: "demo@dynetap.com"
+};
 
-    document.cookie = `access-token=${session.access_token}; path=/; max-age=${maxAge}; SameSite=Lax; secure`;
-    document.cookie = `refresh-token=${session.refresh_token}; path=/; max-age=${maxAge}; SameSite=Lax; secure`;
-  } else {
-    const expires = new Date(0).toUTCString();
-
-    document.cookie = `access-token=; path=/; expires=${expires}; SameSite=Lax; secure`;
-    document.cookie = `refresh-token=; path=/; expires=${expires}; SameSite=Lax; secure`;
-  }
+const MOCK_SESSION: Session = {
+  user: MOCK_USER,
+  access_token: "mock_token"
 };
 
 export const AuthProvider = ({
-  user: initialUser,
-  session: initialSession,
   children,
 }: {
-  user: User | null;
-  session: Session | null;
   children: ReactNode;
 }) => {
-  const [userSession, setUserSession] = useState<Session | null>(
-    initialSession,
-  );
-  const [user, setUser] = useState<User | null>(initialUser);
-  const [isLoading, setIsLoading] = useState(!initialUser);
+  // Check localStorage for mock auth state
+  const [userSession, setUserSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    void supabase()
-      .auth.getSession()
-      .then(({ data: { session } }) => {
-        setUserSession(session);
-        setUser(session?.user ?? null);
-        setCookies(session);
-        setIsLoading(false);
-      });
+  const [isLoading, setIsLoading] = useState(true);
 
-    const { data: authListener } = supabase().auth.onAuthStateChange(
-      (_event, session) => {
-        setUserSession(session);
-        setUser(session?.user ?? null);
-        setCookies(session);
-        setIsLoading(false);
-      },
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+  React.useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") !== "false";
+    if (isLoggedIn) {
+      setUserSession(MOCK_SESSION);
+      setUser(MOCK_USER);
+    } else {
+      setUserSession(null);
+      setUser(null);
+    }
+    setIsLoading(false);
   }, []);
 
   const value = {

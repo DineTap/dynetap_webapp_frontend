@@ -194,7 +194,6 @@ const messages: Resources["common"] = {
     menuPublishedNotification: "Menu has been published",
     menuPublishedNotificationDescription:
       "Your menu has been published. Users will be able to see your menu.",
-    backToDashboard: "Back to Dashboard",
   },
   languageToggle: {
     toggleLanguage: "Toggle Language",

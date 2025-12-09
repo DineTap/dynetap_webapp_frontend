@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
 import { PreviewMenuPage } from "~/pageComponents/PreviewMenuPage/PreviewMenuPage.page";
-import { api } from "~/trpc/server";
+import { mockApi as api } from "~/lib/mockApi";
 
 export async function generateMetadata({
   params,

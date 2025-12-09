@@ -24,6 +24,9 @@ const config = {
       {
         hostname: "xxvyufhdtunogxjibato.supabase.co",
       },
+      {
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   /**
@@ -45,7 +48,7 @@ const config = {
         permanent: true,
       },
       {
-        source:'/return-policy',
+        source: '/return-policy',
         destination: 'https://tryhards.space/return-policy',
         permanent: true,
       }

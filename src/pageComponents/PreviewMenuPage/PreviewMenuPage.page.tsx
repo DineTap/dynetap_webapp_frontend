@@ -6,7 +6,7 @@ import { LoadingScreen } from "~/components/Loading";
 import { MainMenuView } from "~/components/MainMenuView/MainMenuView";
 import { useToast } from "~/components/ui/use-toast";
 import { useHandleFetchError } from "~/shared/hooks/useHandleFetchError";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 interface PreviewMenuPageProps {
   params: {

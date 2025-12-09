@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { LoadingScreen } from "~/components/Loading";
 import { MenuForm } from "~/components/MenuForm/MenuForm";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import { DashboardHeader } from "./molecules/Header";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";

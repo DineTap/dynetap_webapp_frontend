@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { AlertCircle, Home, RefreshCw, Copy, Clock, ChefHat } from "lucide-react";
 import { formatPrice } from "~/utils/formatPrice";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 const statusSteps = [
   { id: "pending", label: "Order Received", icon: Clock },
@@ -159,19 +159,17 @@ export default function OrderTrackingPage() {
                         {/* Timeline Dot */}
                         <div className="flex flex-col items-center">
                           <div
-                            className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                              isCompleted
+                            className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isCompleted
                                 ? "bg-green-600 text-white"
                                 : "bg-slate-200 text-slate-600"
-                            }`}
+                              }`}
                           >
                             {isCompleted ? "✓" : index + 1}
                           </div>
                           {index < statusSteps.length - 1 && (
                             <div
-                              className={`h-8 w-0.5 transition-colors ${
-                                isCompleted ? "bg-green-600" : "bg-slate-200"
-                              }`}
+                              className={`h-8 w-0.5 transition-colors ${isCompleted ? "bg-green-600" : "bg-slate-200"
+                                }`}
                             />
                           )}
                         </div>
@@ -179,9 +177,8 @@ export default function OrderTrackingPage() {
                         {/* Status Info */}
                         <div className="pt-2">
                           <p
-                            className={`font-medium ${
-                              isActive ? "text-slate-900" : "text-slate-600"
-                            }`}
+                            className={`font-medium ${isActive ? "text-slate-900" : "text-slate-600"
+                              }`}
                           >
                             {step.label}
                           </p>

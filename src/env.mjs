@@ -1,69 +1,13 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
 
-export const env = createEnv({
-  /**
-   * Specify your server-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars.
-   */
-  server: {
-    DATABASE_URL: z
-      .string()
-      .url()
-      .refine(
-        (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
-        "You forgot to change the default URL",
-      ),
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
-    SUPABASE_SERVICE_KEY: z.string().min(1),
-    DIRECT_URL: z.string().min(1),
-    LEMONS_SQUEEZY_SIGNATURE_SECRET: z.string(),
-    LEMON_SQUEEZY_API_KEY: z.string().min(1),
-    LEMON_SQUEEZY_STORE_ID: z.string().min(1),            
-    LEMON_SQUEEZY_SUBSCRIPTION_VARIANT_ID: z.string().min(1),
-    YOCO_PUBLIC_KEY: z.string().min(1),
-    YOCO_SECRET_KEY: z.string().min(1),
-    YOCO_WEBHOOK_SECRET: z.string().min(1),
-  },
+// Simple environment variable access for frontend
+// implementation_plan: Removing @t3-oss/env-nextjs dependency
 
-  /**
-   * Specify your client-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars. To expose them to the client, prefix them with
-   * `NEXT_PUBLIC_`.
-   */
-  client: {
-    NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
-    NEXT_PUBLIC_UMAMI_WEBSITE_ID: z.string().optional(),
-    NEXT_PUBLIC_UMAMI_URL: z.string().optional(),
-  },
+const processEnv = {
+  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || "https://mock.supabase.co",
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "mock-key",
+  NEXT_PUBLIC_UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
+  NEXT_PUBLIC_UMAMI_URL: process.env.NEXT_PUBLIC_UMAMI_URL,
+  NODE_ENV: process.env.NODE_ENV || "development"
+};
 
-  /**
-   * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
-   * middlewares) or client-side so we need to destruct manually.
-   */
-  runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
-    NODE_ENV: process.env.NODE_ENV,
-    DIRECT_URL: process.env.DIRECT_URL,
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
-    NEXT_PUBLIC_UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
-    NEXT_PUBLIC_UMAMI_URL: process.env.NEXT_PUBLIC_UMAMI_URL,
-    LEMONS_SQUEEZY_SIGNATURE_SECRET: process.env.LEMONS_SQUEEZY_SIGNATURE_SECRET,
-    LEMON_SQUEEZY_API_KEY: process.env.LEMON_SQUEEZY_API_KEY,
-    LEMON_SQUEEZY_STORE_ID: process.env.LEMON_SQUEEZY_STORE_ID,              
-    LEMON_SQUEEZY_SUBSCRIPTION_VARIANT_ID: process.env.LEMON_SQUEEZY_SUBSCRIPTION_VARIANT_ID,
-    YOCO_PUBLIC_KEY: process.env.YOCO_PUBLIC_KEY,
-    YOCO_SECRET_KEY: process.env.YOCO_SECRET_KEY,
-    YOCO_WEBHOOK_SECRET: process.env.YOCO_WEBHOOK_SECRET,
-  },
-  /**
-   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
-   * useful for Docker builds.
-   */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
-});
+export const env = processEnv;

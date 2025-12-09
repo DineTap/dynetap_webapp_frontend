@@ -18,7 +18,7 @@ import { formatPrice, formatPriceDisplay } from "~/utils/formatPrice";
 import { OrderCheckoutModal, type CheckoutFormData } from "../OrderSession/OrderCheckoutModal";
 import { JoinOrderModal } from "../OrderSession/JoinOrderModal";
 import { OrderNumberDisplay } from "../OrderSession/OrderNumberDisplay";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 
 export const MainMenuView = ({ menu }: { menu: any }) => {
   const router = useRouter();

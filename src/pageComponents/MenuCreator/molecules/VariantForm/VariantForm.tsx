@@ -7,7 +7,7 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useTranslation } from "react-i18next";
-import { api } from "~/trpc/react";
+import { mockApi as api } from "~/lib/mockApi";
 import {
   type AddDishVariantFormValues,
   dishVariantValidationSchema,

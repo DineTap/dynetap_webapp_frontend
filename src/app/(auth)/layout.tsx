@@ -7,7 +7,7 @@ import { Icons } from "~/components/Icons";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { Button } from "~/components/ui/button";
 import { withPublicRoute } from "~/providers/AuthProvider/withPublicRoute";
-import { supabase } from "~/server/supabase/supabaseClient";
+
 
 const testAccounts = [
   { email: "random@gmail.com", password: "testPassword" },

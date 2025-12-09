@@ -1,4 +1,4 @@
-import { type MenuLanguage } from "@prisma/client";
+import { type MenuLanguage } from "~/lib/types";
 
 export const getDefaultLanguage = <T extends MenuLanguage[]>(languages: T) => {
   const defaultLanguage = languages.find((lang) => lang.isDefault);

@@ -14,6 +14,11 @@ export type SidebarNavItem = NavItem & {
 
 const sidebarNavItems: SidebarNavItem[] = [
   {
+    title: <TranslatedText id="userAccountNav.dashboard" />,
+    href: "/dashboard",
+    icon: "chevronLeft",
+  },
+  {
     title: <TranslatedText id="sidebar.restaurant" />,
     href: "/menu/manage/[slug]/restaurant",
     icon: "menu",
@@ -44,7 +49,7 @@ export function Sidebar() {
         const Icon = Icons[item.icon || "menu"];
 
         return (
-          <Link href={item.href.replace("[slug]", slug)} key={item.href}>
+          <Link href={item.href.includes("[slug]") ? item.href.replace("[slug]", slug) : item.href} key={item.href}>
             <span
               className={cn(
                 "group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
