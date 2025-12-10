@@ -131,6 +131,7 @@ const messages: Resources["common"] = {
     city: "City",
     streetAndNumber: "Street and Building Number",
     phoneNumber: "Phone Number",
+    email: "Contact Email",
   },
   userAccountNav: {
     dashboard: "Dashboard",

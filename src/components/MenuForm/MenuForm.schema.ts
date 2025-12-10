@@ -9,6 +9,7 @@ export const menuValidationSchema = z.object({
   city: z.string().min(2),
   address: z.string().min(3),
   contactPhoneNumber: asOptionalField(z.string()),
+  contactEmail: asOptionalField(z.string().email()),
 });
 
 export type UpsertMenuFormValues = ZodReturnType<typeof menuValidationSchema>;

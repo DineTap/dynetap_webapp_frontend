@@ -77,9 +77,12 @@ export default function RestaurantDashboard({ slug }: RestaurantDashboardProps) 
                 {data?.city}, {data?.address}
               </h3>
             </div>
-            {data?.contactNumber &&
+            {data?.contactNumber && (
               <h3 className="text-md">📞 {data?.contactNumber}</h3>
-            }
+            )}
+            {data?.contactEmail && (
+              <h3 className="text-md">✉️ {data?.contactEmail}</h3>
+            )}
           </div>
           <div className="flex flex-col  gap-2">
             <p className="text-center text-lg font-semibold text-primary">

@@ -126,6 +126,7 @@ const messages = {
     city: "Miasto",
     streetAndNumber: "Ulica i numer Budynku",
     phoneNumber: "Numer telefonu",
+    email: "Email kontaktowy",
   },
   userAccountNav: {
     dashboard: "Panel Główny",

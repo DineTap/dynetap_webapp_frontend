@@ -51,6 +51,7 @@ export interface Menu {
     backgroundImageUrl: string | null;
     primaryColor: string;
     contactNumber: string | null;
+    contactEmail: string | null;
 }
 
 const mockCategories: Category[] = [
@@ -118,7 +119,8 @@ const mockMenu: Menu = {
     userId: "user_1",
     backgroundImageUrl: null,
     primaryColor: "#000000",
-    contactNumber: "+1234567890"
+    contactNumber: "+1234567890",
+    contactEmail: "contact@dinetap.com"
 };
 
 // Refined Mock Object matching TRPC structure

@@ -53,6 +53,7 @@ export const MenuForm = ({
       city: "",
       address: "",
       contactPhoneNumber: "",
+      contactEmail: "",
       ...defaultValues,
     },
     resolver: zodResolver(menuValidationSchema),
@@ -105,6 +106,15 @@ export const MenuForm = ({
           name="contactPhoneNumber"
           render={({ field }) => (
             <FormInput label={t("menuForm.phoneNumber")}>
+              <Input {...field} />
+            </FormInput>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="contactEmail"
+          render={({ field }) => (
+            <FormInput label={t("common.emailLabel")}>
               <Input {...field} />
             </FormInput>
           )}
