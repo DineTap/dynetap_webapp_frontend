@@ -25,9 +25,14 @@ const STATUS_CONFIG = {
  * Restaurant orders dashboard
  * Displays incoming orders, status management, and basic analytics
  */
-export function OrdersDashboard() {
+interface OrdersDashboardProps {
+  menuId?: string;
+}
+
+export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
   const searchParams = useSearchParams();
-  const menuId = searchParams.get("menuId");
+  const searchParamMenuId = searchParams.get("menuId");
+  const menuId = propMenuId || searchParamMenuId;
 
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "all">("all");
   const [autoRefresh, setAutoRefresh] = useState(true);

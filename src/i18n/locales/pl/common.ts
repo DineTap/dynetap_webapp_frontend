@@ -167,6 +167,7 @@ const messages = {
     restaurant: "Restauracja",
     QRMenu: "QR Menu",
     edit: "Edytuj",
+    orders: "Zamówienia",
   },
   restaurantDashboard: {
     menuNotFound: "Nie znaleziono menu",

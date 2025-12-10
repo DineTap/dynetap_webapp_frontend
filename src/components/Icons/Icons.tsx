@@ -53,6 +53,7 @@ import {
   QrCode,
   ExternalLink,
   Wifi,
+  ListOrdered,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -95,6 +96,7 @@ export const Icons = {
   construction: Construction,
   settings2: Settings2,
   edit: Edit,
+  listOrdered: ListOrdered,
   star: Star,
   sparkle: Sparkle,
   devices: MonitorSmartphone,

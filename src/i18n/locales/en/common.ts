@@ -172,6 +172,7 @@ const messages: Resources["common"] = {
     restaurant: "Restaurant",
     QRMenu: "QR Menu",
     edit: "Edit",
+    orders: "Orders",
   },
   restaurantDashboard: {
     menuNotFound: "Menu Not Found",

@@ -38,6 +38,11 @@ const sidebarNavItems: SidebarNavItem[] = [
     href: "/menu/manage/[slug]/edit",
     icon: "edit",
   },
+  {
+    title: "Orders",
+    href: "/menu/manage/[slug]/orders",
+    icon: "listOrdered",
+  },
 ];
 
 export function Sidebar() {

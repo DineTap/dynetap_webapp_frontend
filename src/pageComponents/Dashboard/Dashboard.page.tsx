@@ -23,7 +23,7 @@ export function DashboardPage() {
           heading={t("dashboard.title")}
           text={t("dashboard.headingText")}
         >
-          <Link href="/menu/create">
+          <Link href="/dashboard/create">
             <Button className="w-full" variant="outline">
               {t("dashboard.createMenu")}
             </Button>
@@ -48,7 +48,7 @@ export function DashboardPage() {
               <EmptyPlaceholder.Description>
                 {t("dashboard.noMenusCreatedDescription")}
               </EmptyPlaceholder.Description>
-              <Link href="/menu/create">
+              <Link href="/dashboard/create">
                 <Button variant="outline">{t("dashboard.createMenu")}</Button>
               </Link>
             </EmptyPlaceholder>
