@@ -39,7 +39,7 @@ export const PreviewMenuPage = ({ params }: PreviewMenuPageProps) => {
   if (error || !menu) notFound();
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-3xl">
+    <main className="mx-auto min-h-screen w-full max-w-3xl pt-8">
       <MainMenuView menu={menu} />
     </main>
   );

@@ -15,7 +15,7 @@ import { AnalyticsCard } from "./molecules/AnalyticsCard";
 import { SimpleLineChart } from "./molecules/SimpleLineChart";
 import { SimpleBarList } from "./molecules/SimpleBarList";
 import { formatPrice } from "~/utils/formatPrice";
-import { generateHourlyRevenue, generateTopItems, generateWorstItems } from "./utils/mockAnalyticsData";
+import { generateHourlyRevenue, generateTopItems, generateWorstItems, generateFrequentPairs } from "./utils/mockAnalyticsData";
 
 interface DailyAnalyticsProps {
     revenue: number;
@@ -35,6 +35,7 @@ export function DailyAnalytics({
     const hourlyData = generateHourlyRevenue();
     const topItems = generateTopItems();
     const worstItems = generateWorstItems();
+    const frequentPairs = generateFrequentPairs();
 
     const chartData = hourlyData.map((d) => ({
         label: d.hour,
@@ -97,10 +98,10 @@ export function DailyAnalytics({
                         color="text-indigo-600"
                     />
                     <AnalyticsCard
-                        title="Active Operations"
-                        value={pendingCount}
-                        icon={UtensilsCrossed}
-                        description="Orders in progress"
+                        title="Avg time order → paid"
+                        value="18 min"
+                        icon={Timer}
+                        description="Order to Payment"
                         color="text-yellow-600"
                     />
                     <AnalyticsCard
@@ -114,7 +115,7 @@ export function DailyAnalytics({
             </section>
 
             {/* Menu Performance */}
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-3">
                 <section className="space-y-4">
                     <h2 className="text-xl font-bold tracking-tight">Top Selling Items</h2>
                     <Card className="p-6 h-full">
@@ -143,6 +144,23 @@ export function DailyAnalytics({
                                 color: "#ef4444",
                             }))}
                         />
+                    </Card>
+                </section>
+
+                <section className="space-y-4">
+                    <h2 className="text-xl font-bold tracking-tight">Common Pairs</h2>
+                    <Card className="p-6 h-full">
+                        <h3 className="font-medium text-slate-700 mb-4">Frequently Ordered Together</h3>
+                        <div className="space-y-4">
+                            {frequentPairs.map((pair, i) => (
+                                <div key={i} className="flex items-center justify-between border-b pb-2 last:border-0 last:pb-0">
+                                    <div className="text-sm font-medium text-slate-700">
+                                        {pair.item1} + {pair.item2}
+                                    </div>
+                                    <div className="text-sm text-slate-500 font-bold">{pair.count}x</div>
+                                </div>
+                            ))}
+                        </div>
                     </Card>
                 </section>
             </div>

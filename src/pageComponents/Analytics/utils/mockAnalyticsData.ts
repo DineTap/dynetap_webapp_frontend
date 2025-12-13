@@ -53,3 +53,55 @@ export const CHANNELS = [
     { name: "Waiter", value: 20, color: "#f97316" },
     { name: "Counter", value: 10, color: "#64748b" },
 ];
+
+export const generateMenuIntelligence = () => [
+    { name: "Truffle Burger", revenue: 15400, profit: 9800, trend: "up", aov_boost: true },
+    { name: "Lobster Mac", revenue: 12200, profit: 4500, trend: "down", aov_boost: false },
+    { name: "House Fries", revenue: 8600, profit: 7200, trend: "stable", aov_boost: true },
+    { name: "Craft Beer Flight", revenue: 9500, profit: 6000, trend: "up", aov_boost: true },
+    { name: "Vegan Slider", revenue: 3200, profit: 800, trend: "down", aov_boost: false },
+];
+
+export const generateChannelPerformance = () => ({
+    channels: [
+        { name: "QR Menu", revenue: 45000, orders: 850, aov: 52.9, conversion: "24%" },
+        { name: "Waiter", revenue: 28000, orders: 420, aov: 66.6, conversion: "95%" },
+        { name: "Counter", revenue: 12000, orders: 380, aov: 31.5, conversion: "15%" },
+    ],
+});
+
+export const generateTableEfficiency = () => ({
+    avgRevPerTable: 1450,
+    turnoverTime: "48 min",
+    peakUtilization: "85%",
+    underperforming: ["Zone B (Patio)", "Table 14", "Table 4"],
+});
+
+export const generateOperationalStats = () => ({
+    avgPrepTime: 14,
+    bottlenecks: ["19:00 - 20:00 (Kitchen)", "13:00 - 14:00 (Bar)"],
+    staffingStatus: "Optimal",
+    refundRate: "0.8%",
+});
+
+export const generateCustomerExperience = () => ({
+    abandonmentRate: "12%",
+    paymentDropOff: "4%",
+    avgRating: 4.8,
+    issues: ["Long wait time", "Cold food", "App glitch"],
+});
+
+export const generateFrequentPairs = () => [
+    { item1: "Burger", item2: "Fries", count: 145 },
+    { item1: "Steak", item2: "Red Wine", count: 82 },
+    { item1: "Coffee", item2: "Cheesecake", count: 64 },
+    { item1: "Pizza", item2: "Coke", count: 120 },
+];
+
+export const generatePrepTimeTrend = () => {
+    const hours = Array.from({ length: 12 }, (_, i) => i + 10); // 10 AM to 10 PM
+    return hours.map((h) => ({
+        time: `${h}:00`,
+        minutes: Math.floor(Math.random() * 15) + 10, // 10-25 mins
+    }));
+};

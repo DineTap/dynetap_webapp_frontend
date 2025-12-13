@@ -130,14 +130,6 @@ export default function RestaurantDashboard({ slug }: RestaurantDashboardProps) 
             </p>
             <div className="flex flex-col gap-4">
               <QRCode size={200} value={`${getBaseUrl()}/menu/${data?.slug}`} />
-              <Button
-                onClick={() => router.push(`/menu/manage/${slug}/menu`)}
-                className="w-full"
-                variant="outline"
-                size="lg"
-              >
-                {t("restaurantDashboard.manageMenu")}
-              </Button>
             </div>
           </div>
         </div>
