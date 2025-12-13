@@ -326,6 +326,17 @@ export const mockApi = {
                             ]
                         },
                         {
+                            id: "order_4",
+                            status: "pending",
+                            totalPrice: 15000,
+                            createdAt: new Date(Date.now() - 1000 * 60 * 2).toISOString(),
+                            customerName: "Alice Brown",
+                            items: [
+                                { dishName: "Tiramisu", quantity: 1, priceAtTime: 9000 },
+                                { dishName: "Cappuccino", quantity: 2, priceAtTime: 3000 }
+                            ]
+                        },
+                        {
                             id: "order_2",
                             status: "preparing",
                             totalPrice: 14000,
@@ -333,6 +344,26 @@ export const mockApi = {
                             customerName: "Jane Smith",
                             items: [
                                 { dishName: "Pasta Carbonara", quantity: 1, priceAtTime: 14000 }
+                            ]
+                        },
+                        {
+                            id: "order_5",
+                            status: "preparing",
+                            totalPrice: 28000,
+                            createdAt: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
+                            customerName: "Bob Wilson",
+                            items: [
+                                { dishName: "Pizza Margherita", quantity: 2, priceAtTime: 14000 }
+                            ]
+                        },
+                        {
+                            id: "order_6",
+                            status: "preparing",
+                            totalPrice: 8500,
+                            createdAt: new Date(Date.now() - 1000 * 60 * 25).toISOString(),
+                            customerName: "Charlie Day",
+                            items: [
+                                { dishName: "Caesar Salad", quantity: 1, priceAtTime: 8500 }
                             ]
                         },
                         {

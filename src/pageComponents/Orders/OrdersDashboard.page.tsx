@@ -4,37 +4,28 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { mockApi as api } from "~/lib/mockApi";
 import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
-import { AlertCircle, RefreshCw, TrendingUp, Clock, ChefHat, CheckCircle } from "lucide-react";
-import { formatPrice } from "~/utils/formatPrice";
+import { AlertCircle, RefreshCw, Clock, ChefHat, CheckCircle } from "lucide-react";
 import { LoadingScreen } from "~/components/Loading";
 import { OrderCard } from "./molecules/OrderCard";
-import { OrderAnalytics } from "./molecules/OrderAnalytics";
-import { StatusFilter } from "./molecules/StatusFilter";
 
 type OrderStatus = "pending" | "preparing" | "served";
 
-const STATUS_CONFIG = {
-  pending: { label: "Pending", color: "bg-yellow-100 text-yellow-800", icon: Clock },
-  preparing: { label: "Preparing", color: "bg-blue-100 text-blue-800", icon: ChefHat },
-  served: { label: "Ready", color: "bg-green-100 text-green-800", icon: CheckCircle },
+const COLUMN_CONFIG = {
+  pending: { label: "Pending", color: "bg-yellow-50 text-yellow-900 border-yellow-200", icon: Clock },
+  preparing: { label: "Preparing", color: "bg-blue-50 text-blue-900 border-blue-200", icon: ChefHat },
+  served: { label: "Ready", color: "bg-green-50 text-green-900 border-green-200", icon: CheckCircle },
 };
 
-/**
- * Restaurant orders dashboard
- * Displays incoming orders, status management, and basic analytics
- */
 interface OrdersDashboardProps {
   menuId?: string;
+  restaurantName?: string;
 }
 
-export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
+export function OrdersDashboard({ menuId: propMenuId, restaurantName }: OrdersDashboardProps) {
   const searchParams = useSearchParams();
   const searchParamMenuId = searchParams.get("menuId");
   const menuId = propMenuId || searchParamMenuId;
 
-  const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "all">("all");
   const [autoRefresh, setAutoRefresh] = useState(true);
   const pollIntervalRef = useRef<NodeJS.Timeout>();
 
@@ -57,19 +48,11 @@ export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
     };
   }, [autoRefresh, menuId, refetch]);
 
-  // Filter orders by status
-  const filteredOrders = orders?.orders?.filter((order: any) =>
-    selectedStatus === "all" ? true : order.status === selectedStatus
-  ) || [];
-
-  // Calculate analytics
-  const analytics = {
-    totalOrders: orders?.orders?.length || 0,
-    pendingCount: orders?.orders?.filter((o: any) => o.status === "pending").length || 0,
-    preparingCount: orders?.orders?.filter((o: any) => o.status === "preparing").length || 0,
-    completedCount: orders?.orders?.filter((o: any) => o.status === "served").length || 0,
-    totalRevenue: orders?.orders?.reduce((sum: number, o: any) => sum + (o.totalPrice || 0), 0) || 0,
-    popularDishes: calculatePopularDishes(orders?.orders || []),
+  // Group orders by status
+  const ordersByStatus = {
+    pending: orders?.orders?.filter((o: any) => o.status === "pending") || [],
+    preparing: orders?.orders?.filter((o: any) => o.status === "preparing") || [],
+    served: orders?.orders?.filter((o: any) => o.status === "served") || [],
   };
 
   if (!menuId) {
@@ -99,11 +82,13 @@ export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
   }
 
   return (
-    <div className="flex-1 space-y-8 p-6 max-w-7xl mx-auto">
+    <div className="flex-1 space-y-8 p-6 max-w-[1600px] mx-auto overflow-hidden h-[calc(100vh-65px)] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {restaurantName && `${restaurantName} `}Orders
+          </h1>
           <p className="text-slate-600 mt-1">Manage incoming orders and track preparation</p>
         </div>
         <div className="flex gap-2">
@@ -125,48 +110,47 @@ export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
         </div>
       </div>
 
-      {/* Analytics Cards */}
-      <OrderAnalytics analytics={analytics} />
+      {/* Kanban Board */}
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden min-h-0">
+        {(Object.keys(COLUMN_CONFIG) as OrderStatus[]).map((status) => {
+          const config = COLUMN_CONFIG[status];
+          const statusOrders = ordersByStatus[status];
 
-      {/* Filters & Status */}
-      <div className="flex items-center justify-between">
-        <StatusFilter
-          selectedStatus={selectedStatus}
-          onStatusChange={setSelectedStatus}
-          counts={{
-            all: analytics.totalOrders,
-            pending: analytics.pendingCount,
-            preparing: analytics.preparingCount,
-            served: analytics.completedCount,
-          }}
-        />
-      </div>
+          return (
+            <div key={status} className="flex flex-col h-full bg-slate-50/50 rounded-xl border border-slate-200/60 overflow-hidden">
+              {/* Column Header */}
+              <div className={`p-4 border-b flex items-center justify-between ${config.color} bg-opacity-40`}>
+                <div className="flex items-center gap-2 font-semibold">
+                  <config.icon className="h-5 w-5" />
+                  <span>{config.label}</span>
+                </div>
+                <span className="bg-white/50 px-2 py-0.5 rounded-full text-sm font-medium border border-black/5">
+                  {statusOrders.length}
+                </span>
+              </div>
 
-      {/* Orders List */}
-      <div className="space-y-4">
-        {filteredOrders.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-slate-200 p-8 text-center">
-            <p className="text-slate-600">No orders found</p>
-          </div>
-        ) : (
-          filteredOrders.map((order) => (
-            <OrderCard key={order.id} order={order} onStatusUpdated={() => refetch()} />
-          ))
-        )}
+              {/* Column Content */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-slate-200">
+                {statusOrders.length === 0 ? (
+                  <div className="text-center py-10 opacity-50">
+                    <p className="text-sm">No orders</p>
+                  </div>
+                ) : (
+                  statusOrders.map((order: any) => (
+                    <OrderCard key={order.id} order={order} onStatusUpdated={() => refetch()} />
+                  ))
+                )}
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       {/* Auto-refresh Info */}
-      <div className="text-center text-xs text-slate-500 mt-8">
+      <div className="text-center text-xs text-slate-500 mt-2 shrink-0 pb-2">
         {autoRefresh ? (
           <p>
-            Updates automatically every 5 seconds
-            <br />
-            Last updated:{" "}
-            {new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-            })}
+            Last info: {new Date().toLocaleTimeString()}
           </p>
         ) : (
           <p>Auto-refresh paused</p>
@@ -174,32 +158,4 @@ export function OrdersDashboard({ menuId: propMenuId }: OrdersDashboardProps) {
       </div>
     </div>
   );
-}
-
-/**
- * Calculate popular dishes from orders
- */
-function calculatePopularDishes(
-  orders: any[]
-): Array<{ name: string; count: number; revenue: number }> {
-  const dishMap = new Map<string, { count: number; revenue: number }>();
-
-  for (const order of orders) {
-    for (const item of order.items || []) {
-      const key = item.dishName || "Unknown";
-      const existing = dishMap.get(key) || { count: 0, revenue: 0 };
-      dishMap.set(key, {
-        count: existing.count + item.quantity,
-        revenue: existing.revenue + (item.priceAtTime * item.quantity),
-      });
-    }
-  }
-
-  return Array.from(dishMap.entries())
-    .map(([name, data]) => ({
-      name,
-      ...data,
-    }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
 }

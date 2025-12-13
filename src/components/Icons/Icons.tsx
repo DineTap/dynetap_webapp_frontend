@@ -54,11 +54,13 @@ import {
   ExternalLink,
   Wifi,
   ListOrdered,
+  BarChart3,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export const Icons = {
+  analytics: BarChart3,
   wifi: Wifi,
   languages: Languages,
   logo: Command,

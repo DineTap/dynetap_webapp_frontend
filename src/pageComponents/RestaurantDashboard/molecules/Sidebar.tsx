@@ -29,7 +29,7 @@ const sidebarNavItems: SidebarNavItem[] = [
     icon: "menuSquare",
   },
   {
-    title: <TranslatedText id="sidebar.QRMenu" />,
+    title: "QR Code",
     href: "/menu/manage/[slug]/qr-menu",
     icon: "qrcode",
   },
@@ -42,6 +42,11 @@ const sidebarNavItems: SidebarNavItem[] = [
     title: "Orders",
     href: "/menu/manage/[slug]/orders",
     icon: "listOrdered",
+  },
+  {
+    title: "Analytics",
+    href: "/menu/manage/[slug]/analytics",
+    icon: "analytics",
   },
 ];
 

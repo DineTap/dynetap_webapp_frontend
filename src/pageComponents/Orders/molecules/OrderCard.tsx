@@ -25,7 +25,7 @@ interface OrderCardProps {
  * Shows order items, customer info, and status controls
  */
 export function OrderCard({ order, onStatusUpdated }: OrderCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { mutate: updateStatus } = api.checkout.updateOrderStatus.useMutation({
@@ -92,29 +92,31 @@ export function OrderCard({ order, onStatusUpdated }: OrderCardProps) {
         </div>
 
         {/* Customer Info */}
-        <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4 text-sm">
-          {order.customerEmail && (
-            <div>
-              <p className="text-slate-600">Email</p>
-              <p className="font-medium">{order.customerEmail}</p>
-            </div>
-          )}
-          {order.customerPhone && (
-            <div>
-              <p className="text-slate-600">Phone</p>
-              <p className="font-medium">{order.customerPhone}</p>
-            </div>
-          )}
-          {order.tableNumber && (
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-slate-600" />
+        {(order.customerEmail || order.customerPhone || order.tableNumber) && (
+          <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4 text-sm">
+            {order.customerEmail && (
               <div>
-                <p className="text-slate-600">Table</p>
-                <p className="font-medium">{order.tableNumber}</p>
+                <p className="text-slate-600">Email</p>
+                <p className="font-medium">{order.customerEmail}</p>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+            {order.customerPhone && (
+              <div>
+                <p className="text-slate-600">Phone</p>
+                <p className="font-medium">{order.customerPhone}</p>
+              </div>
+            )}
+            {order.tableNumber && (
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-slate-600" />
+                <div>
+                  <p className="text-slate-600">Table</p>
+                  <p className="font-medium">{order.tableNumber}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Expandable Items Section */}
         <div className="mt-4 pt-4 border-t border-slate-200">
