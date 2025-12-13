@@ -6,6 +6,10 @@ import { type PrintCreatorFormValues } from "../../MenuPrintCreator.schema";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MenuCard } from "~/components/MenuCard/MenuCard";
 import { stringify } from "querystring";
+import { pdf } from "@react-pdf/renderer";
+import QRCode from "qrcode";
+
+import { MenuCardPdfDocument } from "./MenuCardPdfDocument";
 
 const MENU_SCALE = 0.4;
 
@@ -22,26 +26,50 @@ export const MenuPdfGenerator = (
 
   const handleDownloadImage = async () => {
     setIsGenerating(true);
-    const searchParams = stringify(menuProps);
-    const url = `${window.location.origin}/generation/qr-menu-pdf?${searchParams}`;
-    const frame = document.createElement("iframe");
+    try {
+      const qrCodeDataUri = await QRCode.toDataURL(menuProps.qrCodeUrl, {
+        width: 400,
+        margin: 0,
+        errorCorrectionLevel: "M",
+      });
 
-    frame.style.display = "none"; // hide iframe
+      const blob = await pdf(
+        <MenuCardPdfDocument
+          {...menuProps}
+          qrCodeDataUri={qrCodeDataUri}
+          translations={{
+            menuOnline: "Menu Online", // Fallback or use translation keys if needed but logic is inside component
+            followUs: "Follow us on social media!",
+            scanQr: "Scan the QR code to check our online menu!",
+            wifiPassword: t("menuPrintCreator.wifiPasswordLabel") + ":", // Using label as approximation or literal
+          }}
+        // We need simple strings for translation from t() if available, but hardcoded in MenuCard.tsx
+        // Let's match MenuCard.tsx as closely as possible.
+        // MenuCard.tsx uses hardcoded English strings for "Follow us..." and "Scan..." except mostly.
+        // Actually MenuCard.tsx has:
+        // "Menu Online" (Hardcoded)
+        // "Follow us on social media!" (Hardcoded)
+        // "Scan the QR code to check our online menu!" (Hardcoded)
+        // "WiFi Password:" (Hardcoded)
+        />,
+      ).toBlob();
 
-    document.body.appendChild(frame);
-    frame.src = url;
-    frame.onload = () => {
-      if (!frame.contentWindow) return;
-      const closePrint = () => {
-        document.body.removeChild(frame);
-      };
-
-      frame.contentWindow.onbeforeunload = closePrint;
-      frame.contentWindow.onafterprint = closePrint;
-      frame.contentWindow.print();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `menu-cards-${new Date().toISOString().slice(0, 10)}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+    } finally {
       setIsGenerating(false);
-    };
+    }
   };
+
+
 
   const updateCardSize = useCallback(() => {
     if (!cardRef.current) return;
@@ -86,9 +114,15 @@ export const MenuPdfGenerator = (
           <MenuCard {...menuProps} />
         </div>
       </div>
-      <Button onClick={handleDownloadImage} loading={isGenerating}>
-        {t("menuPdfGenerator.generatePDFToPrint")}
-      </Button>
+      <div className="flex w-full gap-4">
+        <Button
+          onClick={handleDownloadImage}
+          loading={isGenerating}
+          className="flex-1"
+        >
+          {t("menuPdfGenerator.generatePDFToPrint")}
+        </Button>
+      </div>
     </div>
   );
 };

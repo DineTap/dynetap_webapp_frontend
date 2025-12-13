@@ -34,7 +34,7 @@ export function MenuItem({ menu }: MenuItemProps) {
       </div>
 
       <div className="flex gap-2 items-center">
-        <Link href={`/dashboard/orders?menuId=${menu.id}`}>
+        <Link href={`/menu/manage/${menu.slug}/orders`}>
           <Button variant="outline" size="sm">
             <ShoppingCart className="h-4 w-4 mr-2" />
             View Orders

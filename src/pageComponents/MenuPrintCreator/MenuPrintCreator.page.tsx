@@ -39,6 +39,8 @@ export const MenuPrintCreatorPage = ({
       wifiPassword: "",
       facebookName: "",
       instagramHandle: "",
+      tiktokHandle: "",
+      tiktokEnabled: false,
       restaurantName: "",
       menuLogoImageUrl: null,
       ...initialCookiesFormValues,
@@ -129,6 +131,28 @@ export const MenuPrintCreatorPage = ({
                           <ControlledSwitch
                             control={form.control}
                             name="instagramEnabled"
+                          />
+                        </div>
+                      </FormInput>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="tiktokHandle"
+                    render={({ field }) => (
+                      <FormInput className="w-full" messageClassName="text-xs">
+                        <div className="flex flex-row items-center gap-2">
+                          <Icons.tiktok className="h-6 w-6" />
+
+                          <Input
+                            {...field}
+                            placeholder="TikTok Handle"
+                            className="h-7 w-full"
+                          />
+                          <ControlledSwitch
+                            control={form.control}
+                            name="tiktokEnabled"
                           />
                         </div>
                       </FormInput>
