@@ -10,6 +10,7 @@ import {
     Zap,
     DollarSign,
     ArrowUpRight,
+    Clock,
 } from "lucide-react";
 import { AnalyticsCard } from "./molecules/AnalyticsCard";
 import { SimpleLineChart } from "./molecules/SimpleLineChart";
@@ -64,7 +65,7 @@ export function GeneralAnalytics() {
                     <AnalyticsCard
                         title="Peak Hour"
                         value={stats.peakHour}
-                        icon={ClockIcon} // Helper defined below or import
+                        icon={Clock}
                         description="High volume"
                         color="text-orange-600"
                     />
@@ -149,22 +150,4 @@ export function GeneralAnalytics() {
     );
 }
 
-function ClockIcon(props: any) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            {...props}
-        >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-        </svg>
-    )
-}
+
