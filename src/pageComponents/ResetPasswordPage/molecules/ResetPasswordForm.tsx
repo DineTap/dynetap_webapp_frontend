@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { FormInput } from "~/components/FormInput/FormInput";
-import { Button } from "~/components/ui/button";
+import { Button, buttonVariants } from "~/components/ui/button";
+import Link from "next/link";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
@@ -60,6 +61,14 @@ export function ResetPasswordForm() {
           {t("resetPassword.resetButton")}
         </Button>
       </form>
+      <div className="mt-4">
+        <Link
+          href="/login"
+          className={buttonVariants({ variant: "outline", className: "w-full" })}
+        >
+          Back to login
+        </Link>
+      </div>
     </Form>
   );
 }
