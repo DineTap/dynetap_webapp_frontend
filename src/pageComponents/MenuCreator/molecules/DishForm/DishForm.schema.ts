@@ -4,11 +4,13 @@ import { SUPPORTED_IMAGE_FORMATS } from "~/utils/images";
 
 export const addDishValidationSchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(3),
+  name: z.string().min(3, { message: "You must enter a dish name" }),
   description: z.string().min(3).optional().or(z.literal("")),
-  price: z.coerce.number().min(0.01),
+  price: z.coerce
+    .number()
+    .min(0.01, { message: "Your price must be greater than 0" }),
   imageUrl: z.string().nullable().optional(),
-  categoryId: z.string().optional(),
+  categoryId: z.string().min(1, { message: "You must select a category" }),
   calories: z.coerce.number().optional(),
   weight: z.coerce.number().optional(),
   proteins: z.coerce.number().optional(),
