@@ -81,6 +81,7 @@ export const DishForm = ({
   defaultValues?: Partial<AddDishFormValues>;
   onClose: () => void;
 }) => {
+  const { t } = useTranslation();
   const form = useForm<AddDishFormValuesWithImage>({
     defaultValues: {
       name: "",
@@ -89,13 +90,13 @@ export const DishForm = ({
       categoryId: "",
       ...defaultValues,
     },
-    resolver: zodResolver(addDishValidationSchemaWithImage),
+    resolver: zodResolver(addDishValidationSchemaWithImage(t)),
   });
   const { slug } = useParams() as { slug: string };
   const { data: menuData, isLoading } = api.menus.getMenuBySlug.useQuery({
     slug,
   });
-  const { t } = useTranslation();
+
   const { data: categoriesList, isLoading: categoriesLoading } =
     api.menus.getCategoriesBySlug.useQuery({
       menuSlug: slug,
@@ -132,7 +133,10 @@ export const DishForm = ({
             name="name"
             render={({ field }) => (
               <FormInput label={t("dishForm.dishName")}>
-                <Input {...field} placeholder="Pierogi Ruskie" />
+                <Input
+                  {...field}
+                  placeholder={t("dishForm.dishNamePlaceholder")}
+                />
               </FormInput>
             )}
           />
@@ -182,7 +186,9 @@ export const DishForm = ({
                     (val) => val.value === field.value,
                   )}
                   isSearchable
-                  onChange={(val) => field.onChange(val?.value)}
+                  onChange={(val: { value: string; label: string } | null) =>
+                    field.onChange(val?.value)
+                  }
                   options={categoriesSelectOptions}
                   isLoading={categoriesLoading}
                 />

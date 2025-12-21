@@ -1,6 +1,4 @@
-import { type Resources } from "../types";
-
-const messages: Resources["common"] = {
+const messages = {
   login: {
     title: "Log in",
     emailLabel: "Email",
@@ -107,7 +105,16 @@ const messages: Resources["common"] = {
     cancel: "Cancel",
   },
   dishForm: {
-    descriptionPlaceholder: "Ruskie dumplings with fried onions and bacon.",
+    dishNamePlaceholder: "Cheeseburger",
+    validation: {
+      dishNameRequired: "You must enter a dish name",
+      categoryRequired: "You must select a category",
+      priceRequired: "Your price must be greater than 0",
+      imageSize: "Max image size is 5MB.",
+      imageFormat: "Only .jpg, .jpeg, .png and .webp formats are supported.",
+    },
+    descriptionPlaceholder:
+      "A delicious cheeseburger with lettuce, tomato, and our secret sauce.",
     dishName: "Dish Name",
     dishDescription: "Dish Description",
     priceInPLN: "Price (PLN)",
