@@ -15,6 +15,7 @@ import {
   EditCategoryButton,
 } from "./molecules/AddCategoryButton/AddCategoryButton";
 import { DeleteDishButton } from "./molecules/DeleteDishButton/DeleteDishButton";
+import { ScanMenuButton } from "./molecules/ScanMenuButton/ScanMenuButton";
 import { useTranslation } from "react-i18next";
 import { type TagType } from "~/lib/types";
 import { useHandleFetchError } from "~/shared/hooks/useHandleFetchError";
@@ -90,6 +91,7 @@ export const MenuCreatorPage = ({
         <div className="flex flex-col                                                                      justify-between gap-4 md:flex-row md:items-center">
           <h2 className="text-3xl font-bold">{t("menuCreator.dishesList")}</h2>
           <div className="flex flex-row items-center gap-3">
+            <ScanMenuButton />
             <AddDishButton />
             <AddCategoryButton />
           </div>
