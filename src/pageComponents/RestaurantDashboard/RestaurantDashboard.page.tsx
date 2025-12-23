@@ -112,7 +112,7 @@ export default function RestaurantDashboard({ slug }: RestaurantDashboardProps) 
               </p>
             </div>
           </Link>
-          <Link href={`/menu/manage/${slug}/menu`} target="_blank">
+          <Link href={`/menu/manage/${slug}/menu`}>
             <div className="flex flex-row items-center gap-2">
               <Icons.edit />
               <p className="text-xl font-semibold">
