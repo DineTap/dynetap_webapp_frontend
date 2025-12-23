@@ -26,7 +26,7 @@ export default function OrderTrackingPage() {
 
   const [copied, setCopied] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(true);
-  const pollIntervalRef = useRef<NodeJS.Timeout>();
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // tRPC query with polling
   const { data: order, isLoading, error, refetch } = api.checkout.getOrderStatus.useQuery(
@@ -160,8 +160,8 @@ export default function OrderTrackingPage() {
                         <div className="flex flex-col items-center">
                           <div
                             className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isCompleted
-                                ? "bg-green-600 text-white"
-                                : "bg-slate-200 text-slate-600"
+                              ? "bg-green-600 text-white"
+                              : "bg-slate-200 text-slate-600"
                               }`}
                           >
                             {isCompleted ? "✓" : index + 1}

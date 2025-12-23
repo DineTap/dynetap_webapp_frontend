@@ -22,7 +22,7 @@ export const CropImageModal = ({
   onCropAccepted,
   circleCrop,
   aspectRatio,
-}: CropImageModalProps): JSX.Element => {
+}: CropImageModalProps) => {
   const cropperRef = useRef<AvatarEditor | null>(null);
   const [scale, setScale] = useState(1);
   const { t } = useTranslation();

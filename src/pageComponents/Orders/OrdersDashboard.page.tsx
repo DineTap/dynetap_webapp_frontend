@@ -27,7 +27,7 @@ export function OrdersDashboard({ menuId: propMenuId, restaurantName }: OrdersDa
   const menuId = propMenuId || searchParamMenuId;
 
   const [autoRefresh, setAutoRefresh] = useState(true);
-  const pollIntervalRef = useRef<NodeJS.Timeout>();
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get orders for current menu
   const { data: orders, isLoading, error, refetch } = api.checkout.getOrdersByMenu.useQuery(
